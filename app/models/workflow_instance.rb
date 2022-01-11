@@ -1,0 +1,2 @@
+class WorkflowInstance < ApplicationRecord
+end
