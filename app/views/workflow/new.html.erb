@@ -1,9 +1,0 @@
-<h1>Start new Process Instance</h1>
-
-
-<%= form_with do |form| %>
-  <%= form.label :process_types %>
-  <%=form.select :process_types, @processes.map { |value| [ value['name'], value['key]'] ] } %>
-  <%= form.submit "Start Process Instance" %>
-
-<% end %>
