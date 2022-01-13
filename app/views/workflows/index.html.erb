@@ -12,11 +12,13 @@
   </tr>
 </thead>
   <tbody>
-    <% @instances.each do |instance| %>
+    <% @workflows.each do |workflow| %>
     <tr>
-      <td><%=instance['process-definition-name']%></td>
-      <td><%=instance['business-key'] %></td>
-      <td><%=instance['current-task-dto']['name'] %></td>
+      <td><%=workflow['process_definition_name']%></td>
+      <td><%=workflow['business_key'] %></td>
+      <td><%=workflow['current_task_dto']['name'] %></td>
+      <td> <%= link_to 'Manage', edit_workflow_path(workflow['id'], :task_id=> workflow['current_task_dto']['id'])  %></td>
+
     </tr>
     <% end %>
 

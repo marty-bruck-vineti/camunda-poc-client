@@ -12,16 +12,16 @@
 
 <%= form_with model: @workflow do |form| %>
   <div id="poc-form-field-first">
-    <%= form.label :process_definition_key, "Available Processes:" %>
-    <%=form.select :process_definition_key, @processes.map { |value| [ value['name'], value['key'] ] } %>
+    <%= form.label :process_definition_name, "Available Processes:" %>
+    <%=form.select :process_definition_name, @processes.map { |value| [value['name'], value['key'] ] } %>
   </div>
   <div id="-poc-form-field-last">
     <%= form.label :business_key, "New Instance Unique Identifier:" %>
     <%=form.text_field :business_key %>
   </div>
   <div>
-      <%= submit_tag 'Cancel' %>
-      <%= submit_tag 'Start Process Instance' %>
+    <%= submit_tag 'Cancel' %>
+    <%= submit_tag 'Start Process Instance' %>
   </div>
 
 

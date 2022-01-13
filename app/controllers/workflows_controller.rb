@@ -1,28 +1,28 @@
-require 'rest-client'
-class WorkflowsController < ApplicationController
+# frozen_string_literal: true
 
-  @@base_url = 'http://localhost:8080/api/v1/'
-  @@process_instance_path = 'processinstance/'
-  @@process_definition_path = 'processdefinition/'
+require 'rest-client'
+##
+#
+class WorkflowsController < ApplicationController
+  BASE_URL = 'http://localhost:8080/api/v1/'
+  PROCESS_INSTANCE_PATH = 'processinstance/'
+  PROCESS_DEFINITION_PATH = 'processdefinition/'
 
   before_action :check_for_cancel, only: [:create]
 
   def check_for_cancel
-    if params[:commit].eql?("Cancel")
-      redirect_to root_path
-    end
+    redirect_to root_path if params[:commit].eql?('Cancel')
   end
 
   def index
     # TODO: Add to config
-    url = @@base_url + @@process_instance_path
+    url = BASE_URL + PROCESS_INSTANCE_PATH
     response = RestClient.get(url)
-    @instances = JSON.parse(response.body)
-    print response.code
+    @workflows = JSON.parse(response.body)
   end
 
   def new
-    url = @@base_url + @@process_definition_path
+    url = BASE_URL + PROCESS_DEFINITION_PATH
     response = RestClient.get(url)
     @processes = JSON.parse(response.body)
     @error = nil
@@ -31,25 +31,36 @@ class WorkflowsController < ApplicationController
 
   def create
     @workflow = Workflow.new(params[:workflow].as_json)
-    if (@workflow.valid?)
-      url = @@base_url + @@process_instance_path + 'create/' + @workflow.process_definition_key + "/" + @workflow.business_key
+    if @workflow.valid?
+      url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}create/#{@workflow.process_definition_name}/#{@workflow.business_key}"
       response = RestClient.post(url, nil)
       begin
-        if (response.instance_values["code"].between?(200,207))
-          redirect_to root_url, notice: "Successfully created new process instance"
+        if response.instance_values['code'].between?(200, 207)
+          redirect_to root_url, notice: 'Successfully created new process instance'
         else
           @error = 'Unable to create'
         end
-      rescue Exception => e
-        @error = 'Unable to create new process instance:  ' + 'e.message'
+      rescue StandardError => e
+        @error = "Unable to create new process instance:  #{e.message}"
       end
     else
-      url = @@base_url + @@process_definition_path
+      url = BASE_URL + PROCESS_DEFINITION_PATH
       response = RestClient.get(url)
       @processes = JSON.parse(response.body)
       render new_workflow_path
     end
-
   end
+  def edit
+    case params[:task_id]
+    when 'add_patient_demographics'
+      redirect_to new_patient_path(:process_instance_id => params[:id], :task_id=> params[:task_id])
+    when 'create_order'
+      redirect_to new_order_path(:process_instance_id => params[:id], :task_id=> params[:task_id])
+    when 'submit_order', 'send_order_to_us', 'send_order_to_europe'
+      redirect_to edit_order_path(params[:id], :task_id=> params[:task_id])
 
+    else
+      render new_workflow_path
+    end
+  end
 end
