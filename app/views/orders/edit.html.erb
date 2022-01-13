@@ -1,0 +1,49 @@
+<h1>Submit Order</h1>
+<% if @order.errors.any? %>
+  <div id="error_explanation">
+    <h2>Please correct the following errors: </h2>
+    <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%if !@error.blank? %>
+  <div id="error_explaination">
+    Unable to save: <%=@error %>
+  </div>
+<%end %>
+
+<%= form_with model: @order, :url => order_path(@process_instance_id), :method => 'patch' do |form| %>
+  <%= hidden_field :process, :process_instance_id, :value=> @process_instance_id %>
+  <%= hidden_field :process, :task_id, :value=> @task_id %>
+  <%= hidden_field :order, :order_date, :value => @order.order_date %>
+  <%= hidden_field :order, :order_location, :value => @order.order_location %>
+  <div id="poc-form-field-first">
+   <h2>Press the submit button to submit this order.</h2>
+    <h3>Order Details</h3>
+    <table>
+      <tr>
+        <td>Patient Name: </td>
+        <td><%= [@variables['first_name'],@variables['last_name']].join(' ') %></td>
+      </tr>
+      <tr>
+        <td>Order Date: </td>
+        <td><%= @order.order_date %></td>
+      </tr>
+      <tr>
+        <td>Order Location: </td>
+        <td><%= @order.order_location %></td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <%= submit_tag 'Cancel' %>
+    <%= submit_tag 'Confirm' %>
+  </div>
+
+
+<% end %>
+

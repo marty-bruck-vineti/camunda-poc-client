@@ -1,0 +1,36 @@
+<h1>Add Patient Demographics</h1>
+<% if @patient.errors.any? %>
+  <div id="error_explanation">
+    <h2>Please correct the following errors: </h2>
+    <ul>
+      <% @patient.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%if !@error.blank? %>
+  <div id="error_explaination">
+    Unable to save: <%=@error %>
+  </div>
+  <%end %>
+
+<%= form_with model: @patient do |form| %>
+  <%= hidden_field :process, :process_instance_id, :value=> @process_instance_id %>
+  <%= hidden_field :process, :task_id, :value=> @task_id %>
+  <div id="poc-form-field-first">
+    <%= form.label :first_name, "First Name: " %>
+    <%= form.text_field :first_name %>
+
+  </div>
+  <div id="-poc-form-field-last">
+    <%= form.label :last_name, "Last Name: " %>
+    <%=form.text_field :last_name %>
+  </div>
+  <div>
+    <%= submit_tag 'Cancel' %>
+    <%= submit_tag 'Save' %>
+  </div>
+
+
+<% end %>
