@@ -1,7 +1,7 @@
-<h1>Create Order</h1>
+<h3>Create Order</h3>
 <% if @order.errors.any? %>
   <div id="error_explanation">
-    <h2>Please correct the following errors: </h2>
+    <h3>Please correct the following errors: </h3>
     <ul>
       <% @order.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -18,18 +18,16 @@
 <%= form_with model: @order do |form| %>
   <%= hidden_field :process, :process_instance_id, :value=> @process_instance_id %>
   <%= hidden_field :process, :task_id, :value=> @task_id %>
-  <div id="poc-form-field-first">
-    <%= form.label :order_date, "Order Date: " %>
-    <%= form.date_field :order_date %>
-  </div>
-  <div id="-poc-form-field-last">
-    <%= form.label :order_location, "Manufacturing Location: " %>
-    <%=form.select :order_location, @locations.map { |value| [value, value ] } %>
-  </div>
   <div>
-    <%= submit_tag 'Cancel' %>
-    <%= submit_tag 'Save' %>
-  </div>
+    <div> <%= form.label :order_date, "Order Date: " %></div>
+    <div style="margin-bottom:15px;"><%= form.date_field :order_date %></div>
 
+    <div><%= form.label :order_location, "Manufacturing Location: " %> </div>
+    <div><%=form.select :order_location, @locations.map { |value| [value, value ] } %></div>
+  </div>
+  <div style="display:flex;justify-content:flex-end">
+    <%= submit_tag 'Cancel', :class=> 'myButton'%>
+    <%= submit_tag 'Save', :class=> 'myButton' %>
+  </div>
 
 <% end %>

@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_194243) do
+ActiveRecord::Schema.define(version: 2022_01_14_165237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.datetime "received_date"
+  end
 
   create_table "workflow_instances", force: :cascade do |t|
     t.string "internal_id", limit: 128, null: false

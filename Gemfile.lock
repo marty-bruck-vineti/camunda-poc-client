@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/kookster/activemessaging.git
+  revision: ccbb3b6535a61dd14c23dd588a4971d937918c69
+  branch: feat/rails5
+  specs:
+    activemessaging (0.14.0)
+      activesupport
+      celluloid
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -76,9 +85,12 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    celluloid (0.18.0)
+      timers (~> 4)
     childprocess (4.1.0)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    daemons (1.4.1)
     date_validator (0.12.0)
       activemodel (>= 3)
       activesupport (>= 3)
@@ -189,8 +201,10 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stomp (1.4.9)
     thor (1.1.0)
     tilt (2.0.10)
+    timers (4.3.3)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -224,9 +238,11 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  activemessaging!
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  daemons
   date_validator (~> 0.12.0)
   jbuilder (~> 2.7)
   listen (~> 3.3)
@@ -238,6 +254,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   spring
+  stomp
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

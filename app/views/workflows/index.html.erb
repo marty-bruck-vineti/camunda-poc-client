@@ -1,27 +1,37 @@
-<h1>Active Process Instances</h1>
-<div>
-  <%= link_to "Start new process instance", new_workflow_path %>
+
+<div class="header-with-button">
+  <h2>Active Process Instances</h2>
+
+  <div class="myButton">
+    <%= link_to "+ Start Instance", new_workflow_path %>
+  </div>
 </div>
 
-<table>
-<thead>
-  <tr>
-    <th>Process Type</th>
-    <th>Business Key</th>
-    <th>Current Step</th>
-  </tr>
-</thead>
-  <tbody>
-    <% @workflows.each do |workflow| %>
+<div>
+  <table class="styled-table">
+  <thead>
     <tr>
-      <td><%=workflow['process_definition_name']%></td>
-      <td><%=workflow['business_key'] %></td>
-      <td><%=workflow['current_task_dto']['name'] %></td>
-      <td> <%= link_to 'Manage', edit_workflow_path(workflow['id'], :task_id=> workflow['current_task_dto']['id'])  %></td>
-
+      <th>Process Type</th>
+      <th>Instance Name</th>
+      <th>Current Step</th>
+      <th>Operations</th>
     </tr>
-    <% end %>
+  </thead>
+    <tbody>
+      <% @workflows.each do |workflow| %>
+      <tr>
+        <td><%=workflow['process_definition_name']%></td>
+        <td><%=workflow['business_key'] %></td>
+        <td><%=workflow['current_task_dto']['name'] %></td>
+        <td> <%= link_to 'Manage', edit_workflow_path(workflow['id'], :task_id=> workflow['current_task_dto']['id'])  %></td>
 
-  </tbody>
+      </tr>
+      <% end %>
 
-</table>
+    </tbody>
+
+  </table>
+  <div class="myButton right-aligned">
+    <%= link_to "View received messages", messages_path %>
+  </div>
+</div>

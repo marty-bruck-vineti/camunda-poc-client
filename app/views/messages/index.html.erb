@@ -1,0 +1,38 @@
+<div  class="myButton">
+  <%= link_to "<- Active Workflows", root_path %>
+</div>
+
+<div class="header-with-button">
+  <h2>Message Received from Workflow Server</h2>
+
+  <div class="myButton">
+    <%=link_to "Delete All Messages (!) ", messages_path, :method=> :delete %>
+  </div>
+</div>
+<table class="styled-table">
+  <thead>
+  <tr>
+    <th>Message ID</th>
+    <th>Process Instance Id</th>
+    <th>Process Name</th>
+    <th>Message Id</th>
+    <th>Received On</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @messages.each do |message| %>
+  <%json = JSON.parse(message.body) %>
+    <tr>
+      <td><%= message[:id] %></td>
+      <td><%= json['process_instance_id']%></td>
+      <td><%= json['process_name'] %></td>
+      <td><%= json['activity_id'] %></td>
+      <td><%= message['received_date'] %></td>
+    </tr>
+  <% end %>
+
+  </tbody>
+
+</table>
+<div>  </div>
+

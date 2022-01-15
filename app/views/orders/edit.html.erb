@@ -20,30 +20,26 @@
   <%= hidden_field :process, :task_id, :value=> @task_id %>
   <%= hidden_field :order, :order_date, :value => @order.order_date %>
   <%= hidden_field :order, :order_location, :value => @order.order_location %>
-  <div id="poc-form-field-first">
-   <h2>Press the submit button to submit this order.</h2>
-    <h3>Order Details</h3>
-    <table>
-      <tr>
-        <td>Patient Name: </td>
-        <td><%= [@variables['first_name'],@variables['last_name']].join(' ') %></td>
-      </tr>
-      <tr>
-        <td>Order Date: </td>
-        <td><%= @order.order_date %></td>
-      </tr>
-      <tr>
-        <td>Order Location: </td>
-        <td><%= @order.order_location %></td>
-      </tr>
-    </table>
+   <h3>Review and Submit Order for Processing</h3>
+   <h3>Order Details</h3>
+    <div class="form-container" style="width: 400px;">
+      <div style = "margin-bottom:15px;">
+        <label>Patient Name:</label>
+        <span style="margin-left: 20px"><%=[@variables['first_name'],@variables['last_name']].join(' ') %></span>
+      </div>
+      <div style = "margin-bottom:15px;">
+        <label style="margin-right:10px;">Order Date</label>
+        <span style="margin-left: 20px"><%= @order.order_date %></span>
+      </div>
+      <div style = "margin-bottom:15px;">
+        <label style="margin-right:10px;">Order Location</label>
+        <span style="margin-left: 20px"><%= @order.order_location %></span>
+      </div>
   </div>
-
-  <div>
-    <%= submit_tag 'Cancel' %>
-    <%= submit_tag 'Confirm' %>
+  <div style="display:flex;justify-content:flex-end;width: 400px;">
+    <%= submit_tag 'Cancel', :class=> 'myButton'%>
+    <%= submit_tag 'Confirm', :class=> 'myButton' %>
   </div>
-
 
 <% end %>
 

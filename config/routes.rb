@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'messages/index'
   root 'workflows#index'
-  resources :workflows, :patients, :orders
+  delete 'messages' => 'messages#clear'
+  resources :workflows, :patients, :orders, :messages
+
 end

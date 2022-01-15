@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module CamundaJavaProto
   class Application < Rails::Application
+    config.autoload_paths += %W(#{config.root}/app/processors)
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
     config.camunda_server_url = "http://localhost:8080"

@@ -10,7 +10,16 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body style="width: 980px; margin: 0 auto; overflow: hidden;">
+  <div>
+    <div class="vHeader">
+        <%= image_tag "vineti-logo.png", :style => 'width:50px;'%>
+        <span style="font-size:1.4em;font-weight: bold"> Vineti Workflow Management System </span>
+    </div>
+
+    <div style="margin-top:20px; width:800px;">
+      <%= yield %>
+    </div>
+  </div>
   </body>
 </html>

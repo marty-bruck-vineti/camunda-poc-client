@@ -1,4 +1,4 @@
-<h1>Add Patient Demographics</h1>
+<h3>Add Patient Demographics</h3>
 <% if @patient.errors.any? %>
   <div id="error_explanation">
     <h2>Please correct the following errors: </h2>
@@ -18,19 +18,16 @@
 <%= form_with model: @patient do |form| %>
   <%= hidden_field :process, :process_instance_id, :value=> @process_instance_id %>
   <%= hidden_field :process, :task_id, :value=> @task_id %>
-  <div id="poc-form-field-first">
+  <div class = 'form-container' >
     <%= form.label :first_name, "First Name: " %>
     <%= form.text_field :first_name %>
 
-  </div>
-  <div id="-poc-form-field-last">
     <%= form.label :last_name, "Last Name: " %>
     <%=form.text_field :last_name %>
   </div>
-  <div>
-    <%= submit_tag 'Cancel' %>
-    <%= submit_tag 'Save' %>
+  <div style="display:flex;justify-content:flex-end;width:650px;margin-top: 20px;">
+    <%= submit_tag 'Cancel', :class=> 'myButton'%>
+    <%= submit_tag 'Save', :class=> 'myButton' %>
   </div>
-
 
 <% end %>

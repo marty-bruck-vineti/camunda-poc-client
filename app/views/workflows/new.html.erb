@@ -1,7 +1,7 @@
-<h1>Start new Process Instance</h1>
+<h3>Start a new Process Instance</h3>
 <% if @workflow.errors.any? %>
   <div id="error_explanation">
-    <h2>Please correct the following errors: </h2>
+    <h3>Please correct the following errors: </h3>
     <ul>
       <% @workflow.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,17 +11,23 @@
 <% end %>
 
 <%= form_with model: @workflow do |form| %>
-  <div id="poc-form-field-first">
-    <%= form.label :process_definition_name, "Available Processes:" %>
-    <%=form.select :process_definition_name, @processes.map { |value| [value['name'], value['key'] ] } %>
-  </div>
-  <div id="-poc-form-field-last">
-    <%= form.label :business_key, "New Instance Unique Identifier:" %>
-    <%=form.text_field :business_key %>
-  </div>
-  <div>
-    <%= submit_tag 'Cancel' %>
-    <%= submit_tag 'Start Process Instance' %>
+  <div class = 'form-container' style="display:flex;justify-content: space-between; flex-direction:column">
+      <div>
+        <%= form.label :process_definition_name, "Select a process to Start" %>
+      </div>
+      <div style="margin-bottom:12px;">
+        <%=form.select :process_definition_name, @processes.map { |value| [value['name'], value['key'] ] } %>
+      </div>
+      <div >
+        <%= form.label :business_key, "Provide a unique name for the process instance:" %>
+      </div>
+      <div style="margin-bottom:12px;">
+        <%=form.text_field :business_key %>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <%= submit_tag 'Cancel', :class=> 'myButton'%>
+        <%= submit_tag 'Start Process Instance', :class=> 'myButton' %>
+      </div>
   </div>
 
 
