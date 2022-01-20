@@ -12,11 +12,16 @@ class PatientsController < ApplicationController
   def check_for_cancel
     redirect_to root_path if params[:commit].eql?('Cancel')
   end
+  def get_step_list (process_instance_id)
+    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{process_instance_id}/steps"
+    @steps = JSON.parse(RestClient.get(url))
+  end
 
   def new
     @patient = Patient.new
     @process_instance_id = params[:process_instance_id]
     @task_id = params[:task_id]
+    get_step_list @process_instance_id
   end
 
   ##
@@ -25,6 +30,7 @@ class PatientsController < ApplicationController
     @patient = Patient.new(params[:patient].as_json)
     @process_instance_id = params[:process][:process_instance_id]
     @task_id = params[:process][:task_id]
+    get_step_list @process_instance_id
 
     if @patient.valid?
       url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{params[:process][:process_instance_id]}/completeTask/#{params[:process][:task_id]}"
@@ -43,8 +49,6 @@ class PatientsController < ApplicationController
     else
       render new_patient_path
     end
-
-
   end
 
   # use this method to route to the specific update screen (e.g. add_patient_demographics, create_order, etc.)

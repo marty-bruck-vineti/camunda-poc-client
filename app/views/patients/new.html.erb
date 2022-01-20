@@ -1,3 +1,5 @@
+<%= render :partial => 'steps', locals: { steps: @steps } %>
+
 <h3>Add Patient Demographics</h3>
 <% if @patient.errors.any? %>
   <div id="error_explanation">

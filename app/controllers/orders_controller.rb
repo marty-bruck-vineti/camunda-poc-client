@@ -11,14 +11,17 @@ class OrdersController < ApplicationController
     redirect_to root_path if params[:commit].eql?('Cancel')
   end
 
+  def get_step_list(process_instance_id)
+    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{process_instance_id}/steps"
+    @steps = JSON.parse(RestClient.get(url))
+  end
+
   def new
     @order = Order.new
     @process_instance_id = params[:process_instance_id]
     @task_id = params[:task_id]
     @locations = LOCATIONS
-    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{@process_instance_id}/steps"
-    @steps = JSON.parse(RestClient.get(url))
-
+    get_step_list @process_instance_id
   end
 
   ##
@@ -27,9 +30,7 @@ class OrdersController < ApplicationController
     @order = Order.new(params[:order].as_json)
     @process_instance_id = params[:process][:process_instance_id]
     @task_id = params[:process][:task_id]
-    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{@process_instance_id}/steps"
-    @steps = JSON.parse(RestClient.get(url))
-
+    get_step_list @process_instance_id
     if @order.valid?
       url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{params[:process][:process_instance_id]}/completeTask/#{params[:process][:task_id]}"
       begin
@@ -54,6 +55,7 @@ class OrdersController < ApplicationController
     @error = params[:error]
     @process_instance_id = params[:id]
     @task_id = params[:task_id]
+    get_step_list @process_instance_id
 
     # get the process instance variables to populate the current order
     url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{@process_instance_id}/variables"
@@ -62,13 +64,12 @@ class OrdersController < ApplicationController
     @order = Order.new()
     @order.order_date = @variables['order_date']
     @order.order_location = @variables['order_location']
-
-    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{@process_instance_id}/steps"
-    @steps = JSON.parse(RestClient.get(url))
   end
 
   def update
     process_instance_id = params[:process][:process_instance_id]
+    get_step_list process_instance_id
+
     task_id = params[:process][:task_id]
     url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{process_instance_id}/completeTask/#{task_id}"
     begin
