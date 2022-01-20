@@ -1,0 +1,12 @@
+<div style="font-style: italic; font-weight: bold; font-size: 1.1em;">
+  <span > Execution Path: </span>
+  <span  style="color: cornflowerblue;">
+
+    <% steps.each_with_index do |step, index| %>
+      <span><%= step['name'] %></span>
+      <%if index < steps.size - 1 %>
+        <span>&nbsp;=>&nbsp;</span>
+      <% end %>
+    <% end %>
+  </span>
+</div>

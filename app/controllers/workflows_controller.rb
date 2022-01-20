@@ -63,4 +63,10 @@ class WorkflowsController < ApplicationController
       render new_workflow_path
     end
   end
+
+  def destroy
+    url = BASE_URL + PROCESS_INSTANCE_PATH + params[:id]
+    RestClient.delete(url)
+    redirect_to root_url, notice: 'Successfully cancelled  process instance'
+  end
 end

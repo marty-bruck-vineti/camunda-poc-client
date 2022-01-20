@@ -16,6 +16,9 @@ class OrdersController < ApplicationController
     @process_instance_id = params[:process_instance_id]
     @task_id = params[:task_id]
     @locations = LOCATIONS
+    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{@process_instance_id}/steps"
+    @steps = JSON.parse(RestClient.get(url))
+
   end
 
   ##
@@ -24,6 +27,8 @@ class OrdersController < ApplicationController
     @order = Order.new(params[:order].as_json)
     @process_instance_id = params[:process][:process_instance_id]
     @task_id = params[:process][:task_id]
+    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{@process_instance_id}/steps"
+    @steps = JSON.parse(RestClient.get(url))
 
     if @order.valid?
       url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{params[:process][:process_instance_id]}/completeTask/#{params[:process][:task_id]}"
@@ -57,6 +62,9 @@ class OrdersController < ApplicationController
     @order = Order.new()
     @order.order_date = @variables['order_date']
     @order.order_location = @variables['order_location']
+
+    url = "#{BASE_URL}#{PROCESS_INSTANCE_PATH}#{@process_instance_id}/steps"
+    @steps = JSON.parse(RestClient.get(url))
   end
 
   def update

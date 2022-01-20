@@ -1,3 +1,5 @@
+<%= render :partial => 'steps', locals: { steps: @steps } %>
+
 <h1>Submit Order</h1>
 <% if @order.errors.any? %>
   <div id="error_explanation">

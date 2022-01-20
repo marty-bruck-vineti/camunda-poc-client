@@ -1,4 +1,3 @@
-
 <div class="header-with-button">
   <h2>Active Process Instances</h2>
 
@@ -7,26 +6,38 @@
   </div>
 </div>
 
+
+
 <div>
+  <%=button_to "Refresh", root_path, :method=> :get, :class => "myButton"%>
+  <div>
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+  </div>
   <table class="styled-table">
-  <thead>
+    <thead>
     <tr>
       <th>Process Type</th>
       <th>Instance Name</th>
       <th>Current Step</th>
       <th>Operations</th>
     </tr>
-  </thead>
+    </thead>
     <tbody>
-      <% @workflows.each do |workflow| %>
+    <% @workflows.each do |workflow| %>
       <tr>
         <td><%=workflow['process_definition_name']%></td>
         <td><%=workflow['business_key'] %></td>
         <td><%=workflow['current_task_dto']['name'] %></td>
-        <td> <%= link_to 'Manage', edit_workflow_path(workflow['id'], :task_id=> workflow['current_task_dto']['id'])  %></td>
+        <td> <span style="margin-right: 10px;" ><%= link_to 'Manage', edit_workflow_path(workflow['id'], :task_id=> workflow['current_task_dto']['id'])  %></span>
+          <span><%= link_to 'Cancel',  workflow_path(workflow['id']), :method => :delete %></span>
+        </td>
 
       </tr>
-      <% end %>
+    <% end %>
 
     </tbody>
 
