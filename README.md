@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Camunda Java POC Client
+This project implements both a Rails server and a Poller script. Both interact with the Java POC Server.  It provides the following:
+- Implements a UI for interacting with the Java POC Service
+- Makes REST calls to the Java POC Service to interact with Camunda
+- Sends and Receives JMS messages as appropriate (via the poller task)
 
-Things you may want to cover:
 
-* Ruby version
+## Running the Demo
+To start the Service, first make sure that activemq broker is running locally and that the Java POC service is running.
+Then run the following command to start the rails server
 
-* System dependencies
+`./rails server`
 
-* Configuration
+and the following command to start the poller
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`script/poller start`
+## Documentation
+Full documentation for the POC can be found on the wiki at https://vineti.atlassian.net/wiki/spaces/EN/pages/2033254433/Camunda+API+vs+Rest
