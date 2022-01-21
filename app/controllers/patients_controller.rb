@@ -45,6 +45,7 @@ class PatientsController < ApplicationController
         end
       rescue StandardError => e
         @error = "Unable to create new process instance:  #{e.message}"
+        render new_patient_path
       end
     else
       render new_patient_path

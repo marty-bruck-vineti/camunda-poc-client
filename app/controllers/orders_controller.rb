@@ -44,6 +44,8 @@ class OrdersController < ApplicationController
         end
       rescue StandardError => e
         @error = "Unable to create new process instance:  #{e.message}"
+        render new_order_path
+
       end
     else
       render new_order_path
